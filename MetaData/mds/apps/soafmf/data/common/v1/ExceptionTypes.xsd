@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:mc="http://www.bea.com/wli/sb/context"
+        xmlns:exc="http://soafmf.com/data/common/exceptiontypes/v1"
+        targetNamespace="http://soafmf.com/data/common/exceptiontypes/v1" elementFormDefault="qualified">
+  <element name="exception" type="exc:ExceptionType"/>
+  
+  <complexType name="ExceptionType">
+    <all>
+      <!-- A short string identifying the error (e.g. BEA38229) -->
+      <element name="errorCode" type="string"/>
+      <!-- Descriptive text explaining the reason for the error -->
+      <element name="reason" type="string" minOccurs="0"/>
+      <!-- Any additional details about the error  -->
+      <element name="details" type="anyType" minOccurs="0"/>
+      <!-- Payload of the message  -->
+      <element name="payload" type="anyType" minOccurs="0"/>
+      <!-- Information about where the error occured in the proxy -->
+      <element name="location" type="exc:LocationType" minOccurs="0"/>
+    </all>
+  </complexType>
+  
+  <complexType name="LocationType">
+    <all>
+      <element name="sourceUri" type="string" minOccurs="0"/>
+      <element name="targetUri" type="string" minOccurs="0"/>
+      <element name="uriSourceType" type="exc:uriType" minOccurs="0"/>
+      <element name="uriTargetType" type="exc:uriType" minOccurs="0"/>
+      <element name="error-handler" type="boolean" minOccurs="0"/>
+    </all>
+  </complexType>
+  
+    <simpleType name="uriType">
+        <restriction base="string">
+            <enumeration value="jca"/>
+            <enumeration value="jms"/>
+            <enumeration value="http"/>
+        </restriction>
+    </simpleType>
+</schema>
